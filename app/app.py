@@ -11,9 +11,20 @@ from openai import OpenAI
 import uuid
 
 load_dotenv()
-client = OpenAI()
 
-os.environ["OPENAI_API_KEY"] = st.secrets.get("OPENAI_API_KEY", os.getenv("OPENAI_API_KEY"))
+st.info("🔒 Your API key will only be used temporarily during this session and not stored.")
+user_openai_key = st.text_input("🔑 Enter your OpenAI API Key", type="password")
+
+if not user_openai_key:
+    st.warning("Please enter your OpenAI API key to proceed.")
+    st.stop()
+
+# Set it as environment variable for OpenAI client
+os.environ["OPENAI_API_KEY"] = user_openai_key
+
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+
 os.environ["QDRANT_HOST"] = st.secrets.get("QDRANT_HOST", os.getenv("QDRANT_HOST"))
 os.environ["QDRANT_API_KEY"] = st.secrets.get("QDRANT_API_KEY", os.getenv("QDRANT_API_KEY"))
 
