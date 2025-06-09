@@ -11,11 +11,15 @@ from openai import OpenAI
 import uuid
 
 load_dotenv()
+client = OpenAI()
+
+os.environ["OPENAI_API_KEY"] = st.secrets.get("OPENAI_API_KEY", os.getenv("OPENAI_API_KEY"))
+os.environ["QDRANT_HOST"] = st.secrets.get("QDRANT_HOST", os.getenv("QDRANT_HOST"))
 
 QDRANT_HOST = os.getenv("QDRANT_HOST", "http://localhost:6333")
 QDRANT_COLLECTION = "2nd-use-of-vectors"
 
-client = OpenAI()
+
 
 st.set_page_config(page_title=" PDF RAG Chatbot 📄", layout="wide")
 st.title("PDF RAG Chatbot 📄")
