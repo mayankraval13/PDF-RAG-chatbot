@@ -15,8 +15,9 @@ client = OpenAI()
 
 os.environ["OPENAI_API_KEY"] = st.secrets.get("OPENAI_API_KEY", os.getenv("OPENAI_API_KEY"))
 os.environ["QDRANT_HOST"] = st.secrets.get("QDRANT_HOST", os.getenv("QDRANT_HOST"))
+os.environ["QDRANT_API_KEY"] = st.secrets.get("QDRANT_API_KEY", os.getenv("QDRANT_API_KEY"))
 
-QDRANT_HOST = os.getenv("QDRANT_HOST", "http://localhost:6333")
+# QDRANT_HOST = os.getenv("QDRANT_HOST", "http://localhost:6333")
 QDRANT_COLLECTION = "2nd-use-of-vectors"
 
 
@@ -25,8 +26,10 @@ st.set_page_config(page_title=" PDF RAG Chatbot 📄", layout="wide")
 st.title("PDF RAG Chatbot 📄")
 
 # Making a Qdrant client for DB
-qdrant = QdrantClient(QDRANT_HOST)
-
+qdrant = QdrantClient(
+    url=os.getenv("QDRANT_HOST"),
+    api_key=os.getenv("QDRANT_API_KEY")
+)
 # Check if collection exists, create if not
 def ensure_collection():
     collections = qdrant.get_collections().collections
