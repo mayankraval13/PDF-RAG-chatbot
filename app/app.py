@@ -136,7 +136,7 @@ def generate_answer(context, question):
 
 # Now have to apply Streamlit UI
 uploaded_file = st.file_uploader("Upload PDF", type=["pdf"])
-base_pdf_url = st.text_input("🔗 (Optional) Paste public URL of the same PDF (to link to pages)")
+base_pdf_url = st.text_input("Paste public URL of the same PDF,to link to pages (Optional) ")
 
 if uploaded_file:
     with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp_file:
