@@ -135,7 +135,7 @@ def generate_answer(context, question):
     return response.choices[0].message.content
 
 # Now have to apply Streamlit UI
-uploaded_file = st.file_uploader("Upload PDF 📤", type=["pdf"])
+uploaded_file = st.file_uploader("Upload PDF", type=["pdf"])
 base_pdf_url = st.text_input("🔗 (Optional) Paste public URL of the same PDF (to link to pages)")
 
 if uploaded_file:
@@ -143,15 +143,15 @@ if uploaded_file:
         tmp_file.write(uploaded_file.read())
         tmp_path = tmp_file.name
 
-    st.success("SUCCESS ✅ : PDF uploaded. Processing...")
+    st.success("SUCCESS : PDF uploaded. Processing...")
 
     pages = extract_pages(tmp_path)
     chunks = chunk_pages(pages)
     embed_and_store(chunks, base_pdf_url or None)
-    st.success("SUCCESS ✅ : Text embedded & stored in Qdrant.")
+    st.success("SUCCESS : Text embedded & stored in Qdrant.")
 
-    st.subheader("🤗: Ask anything from or about this document/PDF")
-    user_query = st.text_input("😨: Your question")
+    st.subheader("Ask anything from or about this document/PDF :")
+    user_query = st.text_input("Your question: ")
 
     if user_query:
         with st.spinner("🔍 Searching and generating answer..."):
@@ -161,7 +161,7 @@ if uploaded_file:
             st.markdown("### Your Answer : ")
             st.write(answer)
 
-            st.markdown("### 🔗 Source Pages")
+            st.markdown("### Source Pages")
             seen_pages = set()
             for r in results:
                 page = r.payload["page"]
