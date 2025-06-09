@@ -12,6 +12,9 @@ import uuid
 
 load_dotenv()
 
+st.set_page_config(page_title=" PDF RAG Chatbot 📄", layout="wide")
+st.title("PDF RAG Chatbot 📄")
+
 st.info("🔒 Your API key will only be used temporarily during this session and not stored.")
 user_openai_key = st.text_input("🔑 Enter your OpenAI API Key", type="password")
 
@@ -33,8 +36,7 @@ QDRANT_COLLECTION = "2nd-use-of-vectors"
 
 
 
-st.set_page_config(page_title=" PDF RAG Chatbot 📄", layout="wide")
-st.title("PDF RAG Chatbot 📄")
+
 
 # Making a Qdrant client for DB
 qdrant = QdrantClient(
